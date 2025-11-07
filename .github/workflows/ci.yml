@@ -1,0 +1,40 @@
+name: CI Pipeline Demo   # ชื่อ workflow
+
+# 🔹 เมื่อไหร่ที่ให้ workflow รัน
+on:
+  push:                  # trigger เมื่อ push โค้ด
+    branches: [ main ]   # เฉพาะ branch main
+  pull_request:
+    branches: [ main ]   # และเมื่อมี PR เข้ามา
+
+# 🔹 งานที่ต้องทำ (Jobs)
+jobs:
+  build:
+    runs-on: ubuntu-latest  # OS ที่ใช้รัน (Linux)
+
+    steps:
+      # Step 1: Checkout โค้ดจาก repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: ติดตั้ง Node.js เวอร์ชัน 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Step 3: ติดตั้ง dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: รัน test
+      - name: Run tests
+        run: npm test
+
+      # Step 5: Build project
+      - name: Build project
+        run: npm run build
+
+      # Step 6: แสดงข้อความสรุป
+      - name: Print success message
+        run: echo "🎉 Build and Test succeeded!"
