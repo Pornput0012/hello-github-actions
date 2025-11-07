@@ -6,7 +6,7 @@ on:
     branches: [ main ]   # เฉพาะ branch main
   pull_request:
     branches: [ main ]   # และเมื่อมี PR เข้ามา
-
+  workflow_dispatch:
 # 🔹 งานที่ต้องทำ (Jobs)
 jobs:
   build:
